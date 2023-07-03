@@ -1,0 +1,43 @@
+Readme for Environment Used
+pip packages:
+	numpy - version 1.21.5
+	pafy -version 0.5.5
+	moviepy - version 1.0.3
+	pytube - version 12.1.0
+	os
+	OpenCV 
+	tensorfow - version 2.10.0
+	ScikitLearn
+	tensorflow keras 2.10.0
+	
+System:
+	CPU - AMD ryzen 5 5600h
+	RAM - CORSAIR 16 gh dual channel 3200MHz
+	GPU - Nvidia 1650
+
+Models Used:
+	1. First approach is by using a combination of ConvLSTM cells. A ConvLSTM cell
+ 	is a variant of an LSTM network that contains convolutions operations in the 	network. 
+	it is an LSTM with convolution embedded in the architecture, which 	
+	makes it capable of identifying spatial features of the data while keeping into 	
+	account the temporal relation.
+	For video classification, this approach effectively captures the spatial relation 	
+	in the individual frames and the temporal relation across the different frames. 	
+	As a result of this convolution structure, the ConvLSTM is capable of taking in 	
+	3-dimensional input (width, height, num_of_channels) whereas a simple LSTM 	
+	only takes in 1-dimensional input hence an LSTM is incompatible for modeling 	
+	Spatio-temporal data on its own.
+	Reference - https://arxiv.org/abs/1506.04214v1
+
+	2. The second approach is by using LRCN a combination of Convolution and  	
+	LSTM layers in a single model. the Long-term Recurrent Convolutional Network 	(LRCN), 
+	which combines CNN and LSTM layers in a single model. 
+	he Convolutional layers are used for spatial feature extraction from the frames, 	
+	and the extracted spatial features are fed to LSTM layer(s) at each time-steps 	
+	for temporal sequence modeling. This way the network learns spatiotemporal 	
+	features directly in an end-to-end training, resulting in a robust model.
+	We will also use TimeDistributed wrapper layer, which allows applying the 	
+	same layer to every frame of the video independently. So it makes a layer 	
+	(around which it is wrapped) capable of taking input of shape (no_of_frames, 	
+	width, height, num_of_channels).
+	Reference - https://arxiv.org/abs/1411.4389?source=post_page
